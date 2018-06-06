@@ -14,10 +14,15 @@
     <tr>
         {% for user in users %}
             <td>
-                <table>
+                <table border="1" cellpadding="5">
                     {% for project in user.projects %}
                         <tr>
-                            <td>{{ project.name }}</td>
+                            <td>{{ project.name }}
+                                {% if project.duration %}
+                                <br /><b>{{ project.duration }} minutes</b>
+                                {% endif %}
+                            </td>
+
                         </tr>
                     {% endfor %}
                 </table>

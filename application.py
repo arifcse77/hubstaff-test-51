@@ -1,24 +1,17 @@
-import requests
+""" Run server using Gevent """
+from app import create_app
+from gevent.wsgi import WSGIServer
+from instance.config import CREDENTIALS
 
-from flask import Flask, render_template
-from config import AUTH_TOKEN, APP_TOKEN
+app = create_app(CREDENTIALS)
 
+if __name__ == '__main__':
+    host = "0.0.0.0"
+    port = 5000
 
-app = Flask(__name__)
-
-@app.route('/')
-def hello_world():
-    headers = {
-        'App-Token': APP_TOKEN,
-        'Auth-Token': AUTH_TOKEN,
-    }
-    res = requests.get(url="https://api.hubstaff.com/v1/users", headers=headers)
-    if res.status_code == 200:
-        users = res.json()['users']
-        for user in users:
-            project_res = requests.get("https://api.hubstaff.com/v1/users/" +str(user['id']) + "/projects" , headers=headers)
-            if project_res.status_code == 200:
-                user['projects'] = project_res.json()['projects']
+    if CREDENTIALS['ENV'] == "development":
+        app.run(host=host, port=port, debug=True)
     else:
-        users = []
-    return render_template('users.html', users=users)
+        http_server = WSGIServer((host, port), app)
+        http_server.serve_forever()
+

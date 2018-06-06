@@ -1,1 +1,4 @@
-flask
+flask==1.0
+uwsgi==2.0.17
+gevent==1.2.2
+requests
