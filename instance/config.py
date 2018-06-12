@@ -1,0 +1,5 @@
+CREDENTIALS = {
+    "AUTH_TOKEN": "8MhEmbcfFEIVcoJ0daEUO1TA2rvAM9BUampZrpIxwdA",
+    "APP_TOKEN": "Z64x0QezsWML9817_KIwZX43AIO6OY5dh06MKQQducA",
+    "ENV": "development"
+}
